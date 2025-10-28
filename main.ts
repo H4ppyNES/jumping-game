@@ -37,7 +37,7 @@ game.showLongText("Instructions go here", DialogLayout.Center)
 // STEP 9 (Score System)
 info.setScore(0)
 info.setLife(3)
-// STEP 1 
+// STEP 1
 scene.setBackgroundColor(9)
 // STEP 1 (10x8 Tilemap)
 tiles.setCurrentTilemap(tilemap`level1`)
