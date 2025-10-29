@@ -7,6 +7,14 @@ Welcome to the Jumping Game!
 Let's hope you payed attention, because this project is centered around the topic; **Velocities and Acceleration!**
 
 ![gamescreenshot](https://raw.githubusercontent.com/H4ppyNES/jumping-game/refs/heads/master/assets/images/gamescreenshot.png "gamescreenshot")
+
+
+
+
+
+
+
+
 ## Backgrounds and Tilemaps
 
 Let's create the background of the project!
@@ -48,6 +56,13 @@ Even though you have your tiles, you can't actually use them as **walls** yet! Y
 
 You'll know you've done it right when your tiles give off a ``||variables:red||`` shade!
 
+
+
+
+
+
+
+
 ## Adding Sprites
 
 ### What's a video game without Sprites?
@@ -67,6 +82,14 @@ You'll know you've done it right when your tiles give off a ``||variables:red||`
 - :mouse pointer: Click the ``||sprites:▼Player||`` in your  ``||sprites:set mySprite to []||`` and replace it with ``||sprites:Enemy||``!
 
 🧠: If you find yourself **stuck** and can't make an Enemy sprite, raise your hand and ask a **Code Sensei**!
+
+
+
+
+
+
+
+
 
 ## Placing Your Sprites!
 
@@ -92,6 +115,13 @@ That's because my mouse is hovered on that position!
 
 - :lightbulb: Sensei Recommendation: Player Sprite **(3, 6)** Enemy Sprite **(9, 6)**
 
+
+
+
+
+
+
+
 ## Coding the Projectile!
 
 Time to add the projectile we have to **jump** over:
@@ -107,3 +137,169 @@ This block is a "container block", which means it doesn't need to be connected t
 - :paper plane: In ``||sprites:Sprites||``, find the ``||sprites: set projectile to [] projectile from mySprite with vx [] vy []||`` block. Add this to your ``||game:on game update every 500ms||`` container.
 
 - :mouse pointer: Set the **vx []** from 50 to -50 and set the **vy []** from 50 to 0!
+
+### Adjusting Projectile Properties!
+
+- :mouse pointer: Click the grey **[]** bubble inside your ``||sprites:set projectile to []||`` block and draw your **Projectile Sprite**. You can make this any shape you want — a **spike**, a **fireball**, or even a **flying donut** 🍩!  
+
+- :lightbulb: Sensei Suggestion: Make sure your projectile is small and easy to jump over. Try using a 16x16 sprite or smaller.
+
+Test out your code! By now you should have a **Tilemap**, **Player and Enemy Sprites**, and a **Projectile** to jump over!
+
+
+
+
+
+
+
+
+
+
+
+## Coding the Jump Mechanic!
+
+Now let's add the ability for our Player to **jump** over that projectile.
+
+### Add Gravity!
+
+We'll make gravity pull the Player down so the jump looks realistic.
+
+- :paper plane: From the ``||sprites:Sprites||`` menu, grab the ``||sprites:set mySprite ay to ()||`` block and place it **under your Player creation block**.
+
+- :mouse pointer: Set the **ay** value to **200**.  
+
+This adds downward acceleration **gravity** to your Player!
+
+### Jump When the A Button is Pressed!
+
+Now that the Player falls, let's make them **jump** when you press **A**.
+
+- :game controller: From the ``||controller:Controller||`` menu, grab the ``||controller:on A button pressed||`` block and place it somewhere on your coding area!  
+
+(It doesn't need to connect to your ``||loops:on start||`` block because it's a *container*!)
+
+- :paper plane: Inside it, place the ``||sprites:set mySprite vy to ()||`` block from ``||sprites:Sprites||``.
+
+- :mouse pointer: Set the **vy** value to **-150** — this gives the Player an upward push!
+
+- :lightbulb: Sensei Tip: A higher negative number makes the jump higher, and a smaller number makes it shorter.
+
+
+
+
+
+
+
+
+## Coding the Collision!
+
+We'll make the game detect when the Player hits the Projectile — but instead of ending the game right away, we'll make it **destroy the projectile** and **take away one life**. 💥
+
+### Detect Sprite Overlap
+
+- :paper plane: Go to the ``||sprites:Sprites||`` menu and find the ``||sprites:on overlap||`` block.
+
+- :mouse pointer: Change the dropdowns so it says:  
+  **Player** overlaps **Projectile**.
+
+Now your game can detect when the Player and Projectile touch!
+
+---
+
+### Lose a Life When Hit
+
+Let's make sure the Player loses a life whenever they get hit.
+
+- :heart: From the ``||info:Info||`` menu, grab the ``||info:change life by (-1)||`` block and place it inside your ``||sprites:on overlap||`` container.
+
+This takes away one life every time your Player collides with a Projectile.
+
+---
+
+### Destroy the Projectile
+
+Once the Player gets hit, we don't want the projectile to keep floating around.
+
+- :paper plane: Add a ``||sprites:destroy (otherSprite)||`` block from the ``||sprites:Sprites||`` menu inside the same container, right **after** the ``||info:change life by (-1)||``.
+
+- :mouse pointer: Click the grey ``||sprites:(mySprite)||`` bubble and change it to ``||sprites:otherSprite||``.
+
+Now the projectile that hit the Player will be destroyed when it makes contact. 💥
+
+---
+
+### Start With Lives
+
+Make sure the Player has some lives to begin with!
+
+- :heart: At the **top** of your ``||loops:on start||`` container, add a ``||info:set life to (3)||`` block from the ``||info:Info||`` menu.
+
+This means your Player will have 3 tries before the game ends.
+
+---
+
+### Add Scoring for Surviving
+
+Let's reward the player for staying alive!
+
+- :clock: From the ``||game:Game||`` menu, add a ``||game:on game update every 500ms||`` container (if you don't already have one for scoring).
+
+- :trophy: Inside it, place the ``||info:change score by (1)||`` block from ``||info:Info||``.
+
+This gives the player 1 point every half-second they survive! 🕹️  
+
+- :lightbulb: Sensei Tip — Try reducing the time to 200ms to make scoring faster or increasing it to 1000ms for slower scoring!
+
+---
+
+### Game Over When Out of Lives
+
+Once the Player's lives reach zero, the game should end automatically.
+
+- :circle: From the ``||info:Info||`` menu, drag out the ``||info:on life zero||`` block.
+
+- :mouse pointer: Inside it, place the ``||game:game over (false)||`` block from the ``||game:Game||`` menu.
+
+Now when the Player runs out of lives, the game ends. 🎮  
+
+
+
+
+
+
+
+
+## Testing and Customization!
+
+You're almost done — great work! 🎉
+
+### Try Running Your Game!
+
+Press the **Play ▶️** button on your simulator or download it to your handheld device.
+
+Check:
+- Does your Player fall due to gravity?  
+- Can you jump over the projectile?  
+- Does the game end when you touch it?
+
+
+### 🧠 Challenge Mode!
+
+If you finish early, try one of these **upgrades**:
+- :clock: Change the ``||game:on game update every 500ms||`` to a random value to make the projectile come out at different times!
+- :music: Add music that plays when the game starts.
+- :game controller: Add a "B button" move — maybe a higher jump? 
+
+
+
+
+
+
+
+
+## 🎉 You Did It!
+
+Try uploading your finished game to your own GitHub repo or publish it in MakeCode to share with your class!  
+
+🕹️ Keep experimenting, and soon you'll be building full-on platformers.  
+**Great job, Game Dev!**
